@@ -45,7 +45,6 @@ function startNewGame(){
 
 function getFirstNumber(){
     return 0;
-    //return Math.floor(Math.random()*16) + 0;
 }
 
 function getSecondNumber(firstNum){
@@ -60,7 +59,7 @@ function getSecondNumber(firstNum){
 }
 
 function moveLeft(gameSquares){
-    //spawnPiece(gameSquares);
+    spawnPiece(gameSquares);
     for (let i = 0; i < gameSquares.length; i++){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
@@ -181,7 +180,7 @@ function spaceFilled(gameSquare){
 
 function moveRight(){
     console.log("RIGHT");
-    for (let i = 0; i < gameSquares.length; i++){
+    for (let i = 15; i > -1; i--){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
             console.log("gameSquares length: ", gameSquares.length)
@@ -194,7 +193,7 @@ function moveRight(){
                 //find row
                 console.log("not a corner");
                 console.log(gameSquares[i].classList);
-                if ((gameSquares[i].classList[1] === "1")||(gameSquares[i].classList[1] === "taken")){
+                if ((gameSquares[i].classList[1] === "1")||(gameSquares[i].classList[1] === "A")){
                     console.log("row 1 detected");
                     targetSpot = 3;
                     console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
@@ -300,25 +299,28 @@ function moveUp(){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
             console.log("gameSquares length: ", gameSquares.length)
+            console.log(gameSquares[i].classList);
             //check if it's leftmost
             if ((gameSquares[i].classList[0] === "1")||(gameSquares[i].classList[0] === "2")||(gameSquares[i].classList[0] === "3")||(gameSquares[i].classList[0] === "4")){
-                console.log("corner detected"); 
+                console.log("ceiling detected"); 
             }
             else{
                 var targetSpot = 0;
-                //find row
-                console.log("not a corner");
-                if (gameSquares[i].classList[1] === "1"){
-                    console.log("row 1 detected");
+                //find column
+                console.log("not a ceiling");
+                if (gameSquares[i].classList[2] === "A"){
+                    console.log("column A detected");
                     targetSpot = 0;
                     console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
                     var newPosition = -1;
-                    for (let j = i; j>targetSpot;j--){
+                    let j = i;
+                   while(j>targetSpot){
                         //check if spaceFilledLeft
-                        if (spaceFilled(gameSquares[j-1]) === true){
-                            var newPosition = j;
+                        if (spaceFilled(gameSquares[j-4]) === true){
+                            newPosition = j;
                             break
                         }
+                        j -=4;
                     }
                     if (newPosition < 0){
                         newPosition = targetSpot;
@@ -332,17 +334,19 @@ function moveUp(){
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
                 }
-                else if (gameSquares[i].classList[1] === "2"){
-                    console.log("row 2 detected");
-                    targetSpot = 4;
+                else if (gameSquares[i].classList[2] === "B"){
+                    console.log("column B detected");
+                    targetSpot = 1;
                     console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
                     var newPosition = -1;
-                    for (let j = i; j>targetSpot;j--){
+                    let j = i;
+                   while(j>targetSpot){
                         //check if spaceFilledLeft
-                        if (spaceFilled(gameSquares[j-1]) === true){
-                            var newPosition = j;
+                        if (spaceFilled(gameSquares[j-4]) === true){
+                            newPosition = j;
                             break
                         }
+                        j -=4;
                     }
                     if (newPosition < 0){
                         newPosition = targetSpot;
@@ -356,17 +360,19 @@ function moveUp(){
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
                 }
-                else if (gameSquares[i].classList[1] === "3"){
-                    console.log("row 3 detected");
-                    targetSpot = 8;
+                else if (gameSquares[i].classList[2] === "C"){
+                    console.log("column C detected");
+                    targetSpot = 2;
                     console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
                     var newPosition = -1;
-                    for (let j = i; j>targetSpot;j--){
+                    let j = i;
+                   while(j>targetSpot){
                         //check if spaceFilledLeft
-                        if (spaceFilled(gameSquares[j-1]) === true){
-                            var newPosition = j;
+                        if (spaceFilled(gameSquares[j-4]) === true){
+                            newPosition = j;
                             break
                         }
+                        j -=4;
                     }
                     if (newPosition < 0){
                         newPosition = targetSpot;
@@ -380,17 +386,19 @@ function moveUp(){
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
                 }
-                else if (gameSquares[i].classList[1] === "4"){
-                    console.log("row 4 detected");
-                    targetSpot = 12;
+                else if (gameSquares[i].classList[2] === "D"){
+                    console.log("column D detected");
+                    targetSpot = 3;
                     console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
                     var newPosition = -1;
-                    for (let j = i; j>targetSpot;j--){
+                    let j = i;
+                   while(j>targetSpot){
                         //check if spaceFilledLeft
-                        if (spaceFilled(gameSquares[j-1]) === true){
-                            var newPosition = j;
+                        if (spaceFilled(gameSquares[j-4]) === true){
+                            newPosition = j;
                             break
                         }
+                        j -=4;
                     }
                     if (newPosition < 0){
                         newPosition = targetSpot;
@@ -410,7 +418,127 @@ function moveUp(){
 console.log("loop done");
 }
 function moveDown(){
-    console.log("DOWN")
+    for (let i = 15; i > -1; i--){
+        if (gameSquares[i].classList.contains("taken")){
+            console.log("Scanning ", gameSquares[i].classList[0])
+            console.log("gameSquares length: ", gameSquares.length)
+            console.log(gameSquares[i].classList);
+            //check if it's bottom
+            if ((gameSquares[i].classList[0] === "13")||(gameSquares[i].classList[0] === "14")||(gameSquares[i].classList[0] === "15")||(gameSquares[i].classList[0] === "16")){
+                console.log("floor detected"); 
+            }
+            else{
+                var targetSpot = 0;
+                //find column
+                console.log("not a floor");
+                if ((gameSquares[i].classList[2] === "A")||(gameSquares[i].classList[1] === "A")){
+                    console.log("column A detected");
+                    targetSpot = 12;
+                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    var newPosition = -1;
+                    let j = i;
+                   while(j<targetSpot){
+                        //check if spaceFilledLeft
+                        if (spaceFilled(gameSquares[j+4]) === true){
+                            newPosition = j;
+                            break
+                        }
+                        j +=4;
+                    }
+                    if (newPosition < 0){
+                        newPosition = targetSpot;
+                    }
+                    //swap with new position
+                    gameSquares[newPosition].innerHTML = "2";
+                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].classList.toggle("taken");
+                    gameSquares[i].innerHTML = "";
+                    gameSquares[i].style.backgroundColor = "#CDC1B4";
+                    gameSquares[i].classList.toggle("taken");
+                }
+                else if (gameSquares[i].classList[2] === "B"){
+                    console.log("column B detected");
+                    targetSpot = 13;
+                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    var newPosition = -1;
+                    let j = i;
+                   while(j<targetSpot){
+                        //check if spaceFilledLeft
+                        if (spaceFilled(gameSquares[j+4]) === true){
+                            newPosition = j;
+                            break
+                        }
+                        j +=4;
+                    }
+                    if (newPosition < 0){
+                        newPosition = targetSpot;
+                    }
+                    //swap with new position
+                    gameSquares[newPosition].innerHTML = "2";
+                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].classList.toggle("taken");
+                    gameSquares[i].innerHTML = "";
+                    gameSquares[i].style.backgroundColor = "#CDC1B4";
+                    gameSquares[i].classList.toggle("taken");
+                }
+                else if (gameSquares[i].classList[2] === "C"){
+                    console.log("column C detected");
+                    targetSpot = 14;
+                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    var newPosition = -1;
+                    let j = i;
+                   while(j<targetSpot){
+                        //check if spaceFilledLeft
+                        if (spaceFilled(gameSquares[j+4]) === true){
+                            newPosition = j;
+                            break
+                        }
+                        j +=4;
+                    }
+                    if (newPosition < 0){
+                        newPosition = targetSpot;
+                    }
+                    //swap with new position
+                    gameSquares[newPosition].innerHTML = "2";
+                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].classList.toggle("taken");
+                    gameSquares[i].innerHTML = "";
+                    gameSquares[i].style.backgroundColor = "#CDC1B4";
+                    gameSquares[i].classList.toggle("taken");
+                }
+                else if (gameSquares[i].classList[2] === "D"){
+                    console.log("column D detected");
+                    targetSpot = 15;
+                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    var newPosition = -1;
+                    let j = i;
+                   while(j<targetSpot){
+                        //check if spaceFilledLeft
+                        if (spaceFilled(gameSquares[j+4]) === true){
+                            newPosition = j;
+                            break
+                        }
+                        j +=4;
+                    }
+                    if (newPosition < 0){
+                        newPosition = targetSpot;
+                    }
+                    //swap with new position
+                    gameSquares[newPosition].innerHTML = "2";
+                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].classList.toggle("taken");
+                    gameSquares[i].innerHTML = "";
+                    gameSquares[i].style.backgroundColor = "#CDC1B4";
+                    gameSquares[i].classList.toggle("taken");
+                }
+            }
+    }
+}
+console.log("loop done");
 }
 
 function spawnPiece(gameSquares){
