@@ -7,7 +7,7 @@ document.addEventListener("keydown",function(event){
             moveLeft(gameSquares);
             break;
         case "ArrowRight":
-            moveRight();
+            moveRight(gameSquares);
             break;
         case "ArrowUp":
             moveUp();
@@ -44,22 +44,23 @@ function startNewGame(){
 }
 
 function getFirstNumber(){
-    return 0;
+    return 5;
 }
 
 function getSecondNumber(firstNum){
-    var secondNumFound = false;
+    /*var secondNumFound = false;
     while (secondNumFound === false){
         var secondNum = Math.floor(Math.random() * 16) + 0;
         if (secondNum !== firstNum){
             secondNumFound = true;
         }
-    }
-    return secondNum;
+    }*/
+    return 6;
 }
 
 function moveLeft(gameSquares){
-    spawnPiece(gameSquares);
+    //spawnPiece(gameSquares);
+    console.log(gameSquares);
     for (let i = 0; i < gameSquares.length; i++){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
@@ -88,8 +89,10 @@ function moveLeft(gameSquares){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -112,8 +115,10 @@ function moveLeft(gameSquares){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -136,9 +141,10 @@ function moveLeft(gameSquares){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
-                    gameSquares[newPosition].style.color = "#776E65"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
@@ -160,8 +166,10 @@ function moveLeft(gameSquares){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -172,14 +180,136 @@ function moveLeft(gameSquares){
     }
 }
 console.log("loop done");
+mergeMatchesLeft(gameSquares);
 }
 
 function spaceFilled(gameSquare){
     return gameSquare.classList.contains("taken");
 }
 
-function moveRight(){
+function mergeMatchesLeft(gameSquares){
+    var newValue;
+    var newColor;
+    for (let i = 0; i < gameSquares.length; i++){
+        //look for taken squares
+        if (gameSquares[i].classList.contains("taken")){
+            if ((gameSquares[i].classList[0] === "1")||(gameSquares[i].classList[0] === "5")||(gameSquares[i].classList[0] === "9")||(gameSquares[i].classList[0] === "13")){
+                console.log("corner detected"); 
+            }
+            else{
+                if (spaceFilled(gameSquares[i-1])){
+                    var oldValue = gameSquares[i].innerHTML;
+                    if (gameSquares[i-1].innerHTML === gameSquares[i].innerHTML){
+                        if (oldValue === "2"){
+                            newValue = "4";
+                            newColor = "#EEE1C9";
+                        }
+                        else if (oldValue === "4"){
+                            newValue = "8";
+                         
+                        }
+                        else if (oldValue === "8"){
+                            newValue = "16";
+                        }
+                        else if (oldValue === "16"){
+                            newValue = "32";
+                        }
+                        else if (oldValue === "32"){
+                            newValue = "64";
+                        }
+                        else if (oldValue === "64"){
+                            newValue = "128";
+                        }
+                        else if (oldValue === "128"){
+                            newValue = "256";
+                        }
+                        else if (oldValue === "256"){
+                            newValue = "512";
+                        }
+                        else if (oldValue === "512"){
+                            newValue = "1024";
+                        }
+                        else if (oldValue === "1024"){
+                            newValue = "2048";
+                        }
+                        gameSquares[i-1].innerHTML = newValue;
+                        gameSquares[i-1].style.backgroundColor = newColor;
+                        gameSquares[i].innerHTML = "";
+                        gameSquares[i].style.backgroundColor = "#CDC1B4";
+                        gameSquares[i].classList.toggle("taken");
+                    }
+                }
+            }
+
+        }
+    }
+    console.log(gameSquares);
+}
+
+function mergeMatchesRight(gameSquares){
+    console.log("CHECKING");
+    console.log(gameSquares);
+    var newValue;
+    var newColor;
+    for (let i = 15; i>-1; i--){
+        //look for taken squares
+        if (gameSquares[i].classList.contains("taken")){
+            if ((gameSquares[i].classList[0] === "4")||(gameSquares[i].classList[0] === "8")||(gameSquares[i].classList[0] === "12")||(gameSquares[i].classList[0] === "16")){
+                console.log("corner detected"); 
+            }
+            else{
+                if (spaceFilled(gameSquares[i+1])){
+                    var oldValue = gameSquares[i].innerHTML;
+                    if (gameSquares[i+1].innerHTML === gameSquares[i].innerHTML){
+                        if (oldValue === "2"){
+                            newValue = "4";
+                            newColor = "#EEE1C9";
+                        }
+                        else if (oldValue === "4"){
+                            newValue = "8";
+                        }
+                        else if (oldValue === "8"){
+                            newValue = "16";
+                        }
+                        else if (oldValue === "16"){
+                            newValue = "32";
+                        }
+                        else if (oldValue === "32"){
+                            newValue = "64";
+                        }
+                        else if (oldValue === "64"){
+                            newValue = "128";
+                        }
+                        else if (oldValue === "128"){
+                            newValue = "256";
+                        }
+                        else if (oldValue === "256"){
+                            newValue = "512";
+                        }
+                        else if (oldValue === "512"){
+                            newValue = "1024";
+                        }
+                        else if (oldValue === "1024"){
+                            newValue = "2048";
+                        }
+                        gameSquares[i+1].innerHTML = newValue;
+                        gameSquares[i+1].style.backgroundColor = newColor;
+                        gameSquares[i].innerHTML = "";
+                        gameSquares[i].style.backgroundColor = "#CDC1B4";
+                        gameSquares[i].classList.toggle("taken");
+
+                    }
+                }
+            }
+
+        }
+    }
+    console.log(gameSquares);
+}
+
+function moveRight(gameSquares){
     console.log("RIGHT");
+    console.log(gameSquares);
     for (let i = 15; i > -1; i--){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
@@ -209,8 +339,10 @@ function moveRight(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -233,8 +365,10 @@ function moveRight(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -257,8 +391,10 @@ function moveRight(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -281,8 +417,12 @@ function moveRight(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -293,6 +433,7 @@ function moveRight(){
     }
 }
 console.log("loop done");
+mergeMatchesRight(gameSquares);
 }
 function moveUp(){
     for (let i = 0; i < gameSquares.length; i++){
@@ -326,8 +467,10 @@ function moveUp(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -352,8 +495,10 @@ function moveUp(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -378,8 +523,10 @@ function moveUp(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -404,8 +551,10 @@ function moveUp(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -449,8 +598,10 @@ function moveDown(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -475,8 +626,10 @@ function moveDown(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -501,8 +654,10 @@ function moveDown(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
@@ -527,8 +682,10 @@ function moveDown(){
                         newPosition = targetSpot;
                     }
                     //swap with new position
-                    gameSquares[newPosition].innerHTML = "2";
-                    gameSquares[newPosition].style.backgroundColor = "#EEE4DA"
+                    oldValue = gameSquares[i].innerHTML;
+                    oldColor = gameSquares[i].style.backgroundColor;
+                    gameSquares[newPosition].innerHTML = oldValue;
+                    gameSquares[newPosition].style.backgroundColor = oldColor;
                     gameSquares[newPosition].style.color = "#776E65"
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
