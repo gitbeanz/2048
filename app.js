@@ -18,6 +18,9 @@ document.addEventListener("keydown",function(event){
     }
 })
 
+//TODO: Make a function once things are merged called Fill in Gaps, which checks for gaps made by merging and fills them, essentially moving towards the direction again.
+//TODO: fix spawning (can only be done if a move is valid)
+
 
 function startNewGame(){
     var gameSquares = document.querySelectorAll("[id='game-square']");
@@ -44,7 +47,7 @@ function startNewGame(){
 }
 
 function getFirstNumber(){
-    return 11;
+    return 5;
 }
 
 function getSecondNumber(firstNum){
@@ -55,11 +58,11 @@ function getSecondNumber(firstNum){
             secondNumFound = true;
         }
     }*/
-    return 15;
+    return 6;
 }
 
 function moveLeft(gameSquares){
-    spawnPiece(gameSquares);
+    var pieceSwapped = false;
     console.log(gameSquares);
     for (let i = 0; i < gameSquares.length; i++){
         if (gameSquares[i].classList.contains("taken")){
@@ -103,6 +106,7 @@ function moveLeft(gameSquares){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[1] === "2"){
@@ -137,6 +141,7 @@ function moveLeft(gameSquares){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[1] === "3"){
@@ -169,6 +174,7 @@ function moveLeft(gameSquares){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[1] === "4"){
@@ -201,13 +207,17 @@ function moveLeft(gameSquares){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
             }
     }
 }
 console.log("loop done");
-mergeMatchesLeft(gameSquares);
+var mergeSuccessful = mergeMatchesLeft(gameSquares);
+if ((mergeSuccessful)||(pieceSwapped)){
+    spawnPiece(gameSquares);
+}
 }
 
 function spaceFilled(gameSquare){
@@ -218,6 +228,7 @@ function mergeMatchesLeft(gameSquares){
     var newValue;
     var newColor;
     var newFont;
+    var mergeSuccessful = false;
     for (let i = 0; i < gameSquares.length; i++){
         //look for taken squares
         if (gameSquares[i].classList.contains("taken")){
@@ -287,6 +298,7 @@ function mergeMatchesLeft(gameSquares){
                         gameSquares[i].innerHTML = "";
                         gameSquares[i].style.backgroundColor = "#CDC1B4";
                         gameSquares[i].classList.toggle("taken");
+                        mergeSuccessful = true;
                     }
                 }
             }
@@ -294,6 +306,7 @@ function mergeMatchesLeft(gameSquares){
         }
     }
     console.log(gameSquares);
+    return mergeSuccessful;
 }
 
 function mergeMatchesRight(gameSquares){
@@ -302,6 +315,7 @@ function mergeMatchesRight(gameSquares){
     var newValue;
     var newColor;
     var newFont;
+    var mergeSuccessful = false;
     for (let i = 15; i>-1; i--){
         //look for taken squares
         if (gameSquares[i].classList.contains("taken")){
@@ -370,6 +384,7 @@ function mergeMatchesRight(gameSquares){
                         gameSquares[i].innerHTML = "";
                         gameSquares[i].style.backgroundColor = "#CDC1B4";
                         gameSquares[i].classList.toggle("taken");
+                        mergeSuccessful = true;
 
                     }
                 }
@@ -378,12 +393,13 @@ function mergeMatchesRight(gameSquares){
         }
     }
     console.log(gameSquares);
+    return mergeSuccessful;
 }
 
 function moveRight(gameSquares){
     console.log("RIGHT");
     console.log(gameSquares);
-    spawnPiece(gameSquares);
+    var pieceSwapped = false;
     for (let i = 15; i > -1; i--){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
@@ -427,6 +443,7 @@ function moveRight(gameSquares){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[1] === "2"){
@@ -459,6 +476,7 @@ function moveRight(gameSquares){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[1] === "3"){
@@ -491,6 +509,7 @@ function moveRight(gameSquares){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[1] === "4"){
@@ -523,16 +542,20 @@ function moveRight(gameSquares){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
             }
     }
 }
 console.log("loop done");
-mergeMatchesRight(gameSquares);
+var mergeSuccessful = mergeMatchesRight(gameSquares);
+if ((pieceSwapped)||(mergeSuccessful)){
+    spawnPiece(gameSquares);
+}
 }
 function moveUp(){
-    spawnPiece(gameSquares);
+    var pieceSwapped = false;
     for (let i = 0; i < gameSquares.length; i++){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
@@ -578,6 +601,7 @@ function moveUp(){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[2] === "B"){
@@ -612,6 +636,7 @@ function moveUp(){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[2] === "C"){
@@ -646,6 +671,7 @@ function moveUp(){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[2] === "D"){
@@ -680,19 +706,24 @@ function moveUp(){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
             }
     }
 }
 console.log("loop done");
-mergeMatchesUp(gameSquares);
+var mergeSuccessful = mergeMatchesUp(gameSquares);
+if ((pieceSwapped)||(mergeSuccessful)){
+    ssspawnPiece(gameSquares);
+}
 }
 
 function mergeMatchesUp(gameSquares){
     var newValue;
     var newColor;
     var newFont;
+    var mergeSuccessful = false;
     for (let i = 0; i < gameSquares.length; i++){
         //look for taken squares
         if (gameSquares[i].classList.contains("taken")){
@@ -761,6 +792,7 @@ function mergeMatchesUp(gameSquares){
                         gameSquares[i].innerHTML = "";
                         gameSquares[i].style.backgroundColor = "#CDC1B4";
                         gameSquares[i].classList.toggle("taken");
+                        mergeSuccessful = true;
                     }
                 }
             }
@@ -768,10 +800,11 @@ function mergeMatchesUp(gameSquares){
         }
     }
     console.log(gameSquares);
+    return mergeSuccessful;
 }
 
 function moveDown(){
-    spawnPiece(gameSquares);
+    var pieceSwapped = false;
     for (let i = 15; i > -1; i--){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
@@ -817,6 +850,7 @@ function moveDown(){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[2] === "B"){
@@ -851,6 +885,7 @@ function moveDown(){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[2] === "C"){
@@ -885,6 +920,7 @@ function moveDown(){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
                     }
                 }
                 else if (gameSquares[i].classList[2] === "D"){
@@ -919,19 +955,26 @@ function moveDown(){
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    pieceSwapped = true;
+                    console.log(pieceSwapped);
                     }
                 }
             }
     }
 }
 console.log("loop done");
-mergeMatchesDown(gameSquares);
+console.log(pieceSwapped);
+var mergeSuccessful = mergeMatchesDown(gameSquares);
+if ((pieceSwapped)||(mergeSuccessful)){
+spawnPiece(gameSquares);
+}
 }
 
 function mergeMatchesDown(gameSquares){
     var newValue;
     var newColor;
     var newFont;
+    var mergeSuccessful = false;
     for (let i = 15; i > -1; i--){
         //look for taken squares
         if (gameSquares[i].classList.contains("taken")){
@@ -1000,6 +1043,7 @@ function mergeMatchesDown(gameSquares){
                         gameSquares[i].innerHTML = "";
                         gameSquares[i].style.backgroundColor = "#CDC1B4";
                         gameSquares[i].classList.toggle("taken");
+                        mergeSuccessful = true;
                     }
                 }
             }
@@ -1007,6 +1051,7 @@ function mergeMatchesDown(gameSquares){
         }
     }
     console.log(gameSquares);
+    return mergeSuccessful;
 }
 
 function spawnPiece(gameSquares){
