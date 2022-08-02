@@ -10,10 +10,10 @@ document.addEventListener("keydown",function(event){
             moveRight(gameSquares);
             break;
         case "ArrowUp":
-            moveUp();
+            moveUp(gameSquares);
             break;
         case "ArrowDown":
-            moveDown();
+            moveDown(gameSquares);
             break;
     }
 })
@@ -44,7 +44,7 @@ function startNewGame(){
 }
 
 function getFirstNumber(){
-    return 5;
+    return 11;
 }
 
 function getSecondNumber(firstNum){
@@ -55,11 +55,11 @@ function getSecondNumber(firstNum){
             secondNumFound = true;
         }
     }*/
-    return 6;
+    return 15;
 }
 
 function moveLeft(gameSquares){
-    //spawnPiece(gameSquares);
+    spawnPiece(gameSquares);
     console.log(gameSquares);
     for (let i = 0; i < gameSquares.length; i++){
         if (gameSquares[i].classList.contains("taken")){
@@ -85,19 +85,25 @@ function moveLeft(gameSquares){
                             break
                         }
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont; 
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[1] === "2"){
                     console.log("row 2 detected");
@@ -107,23 +113,31 @@ function moveLeft(gameSquares){
                     for (let j = i; j>targetSpot;j--){
                         //check if spaceFilledLeft
                         if (spaceFilled(gameSquares[j-1]) === true){
+                            console.log("SPACE DETECTED")
                             var newPosition = j;
+                            console.log("j value: ", j);
                             break
                         }
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont; 
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[1] === "3"){
                     console.log("row 3 detected");
@@ -137,18 +151,25 @@ function moveLeft(gameSquares){
                             break
                         }
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
+                    gameSquares[newPosition].style.color = oldFont; 
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[1] === "4"){
                     console.log("row 4 detected");
@@ -162,19 +183,25 @@ function moveLeft(gameSquares){
                             break
                         }
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;                    
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
             }
     }
@@ -190,11 +217,13 @@ function spaceFilled(gameSquare){
 function mergeMatchesLeft(gameSquares){
     var newValue;
     var newColor;
+    var newFont;
     for (let i = 0; i < gameSquares.length; i++){
         //look for taken squares
         if (gameSquares[i].classList.contains("taken")){
             if ((gameSquares[i].classList[0] === "1")||(gameSquares[i].classList[0] === "5")||(gameSquares[i].classList[0] === "9")||(gameSquares[i].classList[0] === "13")){
                 console.log("corner detected"); 
+                //check space to the right
             }
             else{
                 if (spaceFilled(gameSquares[i-1])){
@@ -203,37 +232,58 @@ function mergeMatchesLeft(gameSquares){
                         if (oldValue === "2"){
                             newValue = "4";
                             newColor = "#EEE1C9";
+                            newFont = "#776E65";
                         }
                         else if (oldValue === "4"){
                             newValue = "8";
+                            newColor = "#F3B27A";
+                            newFont = "#F9F6F2";
                          
                         }
                         else if (oldValue === "8"){
                             newValue = "16";
+                            newColor = "#F69664";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "16"){
                             newValue = "32";
+                            newColor= "#F57C5F";
+                            newFont = "#F9F6F2";
+                            
                         }
                         else if (oldValue === "32"){
                             newValue = "64";
+                            newColor = "#F5623C";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "64"){
                             newValue = "128";
+                            newColor = "#EDCE71";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "128"){
                             newValue = "256";
+                            newColor = "#EDCC63";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "256"){
                             newValue = "512";
+                            newColor = "#F9CA58";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "512"){
                             newValue = "1024";
+                            newColor = "#EDC53F";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "1024"){
                             newValue = "2048";
+                            newColor = "#E0BA00";
+                            newFont = "#F9F6F2";
                         }
                         gameSquares[i-1].innerHTML = newValue;
                         gameSquares[i-1].style.backgroundColor = newColor;
+                        gameSquares[i-1].style.color = newFont;
                         gameSquares[i].innerHTML = "";
                         gameSquares[i].style.backgroundColor = "#CDC1B4";
                         gameSquares[i].classList.toggle("taken");
@@ -251,6 +301,7 @@ function mergeMatchesRight(gameSquares){
     console.log(gameSquares);
     var newValue;
     var newColor;
+    var newFont;
     for (let i = 15; i>-1; i--){
         //look for taken squares
         if (gameSquares[i].classList.contains("taken")){
@@ -264,36 +315,58 @@ function mergeMatchesRight(gameSquares){
                         if (oldValue === "2"){
                             newValue = "4";
                             newColor = "#EEE1C9";
+                            newFont = "#776E65";
                         }
                         else if (oldValue === "4"){
                             newValue = "8";
+                            newColor = "#F3B27A";
+                            newFont = "#F9F6F2";
+                         
                         }
                         else if (oldValue === "8"){
                             newValue = "16";
+                            newColor = "#F69664";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "16"){
                             newValue = "32";
+                            newColor= "#F57C5F";
+                            newFont = "#F9F6F2";
+                            
                         }
                         else if (oldValue === "32"){
                             newValue = "64";
+                            newColor = "#F5623C";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "64"){
                             newValue = "128";
+                            newColor = "#EDCE71";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "128"){
                             newValue = "256";
+                            newColor = "#EDCC63";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "256"){
                             newValue = "512";
+                            newColor = "#F9CA58";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "512"){
                             newValue = "1024";
+                            newColor = "#EDC53F";
+                            newFont = "#F9F6F2";
                         }
                         else if (oldValue === "1024"){
                             newValue = "2048";
+                            newColor = "#E0BA00";
+                            newFont = "#F9F6F2";
                         }
                         gameSquares[i+1].innerHTML = newValue;
                         gameSquares[i+1].style.backgroundColor = newColor;
+                        gameSquares[i+1].style.color = newFont;
                         gameSquares[i].innerHTML = "";
                         gameSquares[i].style.backgroundColor = "#CDC1B4";
                         gameSquares[i].classList.toggle("taken");
@@ -310,6 +383,7 @@ function mergeMatchesRight(gameSquares){
 function moveRight(gameSquares){
     console.log("RIGHT");
     console.log(gameSquares);
+    spawnPiece(gameSquares);
     for (let i = 15; i > -1; i--){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
@@ -335,19 +409,25 @@ function moveRight(gameSquares){
                             break
                         }
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[1] === "2"){
                     console.log("row 2 detected");
@@ -361,19 +441,25 @@ function moveRight(gameSquares){
                             break
                         }
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[1] === "3"){
                     console.log("row 3 detected");
@@ -387,19 +473,25 @@ function moveRight(gameSquares){
                             break
                         }
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[1] === "4"){
                     console.log("row 4 detected");
@@ -413,21 +505,25 @@ function moveRight(gameSquares){
                             break
                         }
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].innerHTML = oldValue;
-                    gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
             }
     }
@@ -436,6 +532,7 @@ console.log("loop done");
 mergeMatchesRight(gameSquares);
 }
 function moveUp(){
+    spawnPiece(gameSquares);
     for (let i = 0; i < gameSquares.length; i++){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
@@ -463,19 +560,25 @@ function moveUp(){
                         }
                         j -=4;
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[2] === "B"){
                     console.log("column B detected");
@@ -491,19 +594,25 @@ function moveUp(){
                         }
                         j -=4;
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[2] === "C"){
                     console.log("column C detected");
@@ -519,19 +628,25 @@ function moveUp(){
                         }
                         j -=4;
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[2] === "D"){
                     console.log("column D detected");
@@ -547,26 +662,116 @@ function moveUp(){
                         }
                         j -=4;
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
             }
     }
 }
 console.log("loop done");
+mergeMatchesUp(gameSquares);
 }
+
+function mergeMatchesUp(gameSquares){
+    var newValue;
+    var newColor;
+    var newFont;
+    for (let i = 0; i < gameSquares.length; i++){
+        //look for taken squares
+        if (gameSquares[i].classList.contains("taken")){
+            if ((gameSquares[i].classList[0] === "1")||(gameSquares[i].classList[0] === "2")||(gameSquares[i].classList[0] === "3")||(gameSquares[i].classList[0] === "4")){
+                console.log("ceiling detected"); 
+            }
+            else{
+                if (spaceFilled(gameSquares[i-4])){
+                    var oldValue = gameSquares[i].innerHTML;
+                    if (gameSquares[i-4].innerHTML === gameSquares[i].innerHTML){
+                        if (oldValue === "2"){
+                            newValue = "4";
+                            newColor = "#EEE1C9";
+                            newFont = "#776E65";
+                        }
+                        else if (oldValue === "4"){
+                            newValue = "8";
+                            newColor = "#F3B27A";
+                            newFont = "#F9F6F2";
+                         
+                        }
+                        else if (oldValue === "8"){
+                            newValue = "16";
+                            newColor = "#F69664";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "16"){
+                            newValue = "32";
+                            newColor= "#F57C5F";
+                            newFont = "#F9F6F2";
+                            
+                        }
+                        else if (oldValue === "32"){
+                            newValue = "64";
+                            newColor = "#F5623C";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "64"){
+                            newValue = "128";
+                            newColor = "#EDCE71";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "128"){
+                            newValue = "256";
+                            newColor = "#EDCC63";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "256"){
+                            newValue = "512";
+                            newColor = "#F9CA58";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "512"){
+                            newValue = "1024";
+                            newColor = "#EDC53F";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "1024"){
+                            newValue = "2048";
+                            newColor = "#E0BA00";
+                            newFont = "#F9F6F2";
+                        }
+                        gameSquares[i-4].innerHTML = newValue;
+                        gameSquares[i-4].style.backgroundColor = newColor;
+                        gameSquares[i-4].style.color = newFont;
+                        gameSquares[i].innerHTML = "";
+                        gameSquares[i].style.backgroundColor = "#CDC1B4";
+                        gameSquares[i].classList.toggle("taken");
+                    }
+                }
+            }
+
+        }
+    }
+    console.log(gameSquares);
+}
+
 function moveDown(){
+    spawnPiece(gameSquares);
     for (let i = 15; i > -1; i--){
         if (gameSquares[i].classList.contains("taken")){
             console.log("Scanning ", gameSquares[i].classList[0])
@@ -594,19 +799,25 @@ function moveDown(){
                         }
                         j +=4;
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[2] === "B"){
                     console.log("column B detected");
@@ -622,19 +833,25 @@ function moveDown(){
                         }
                         j +=4;
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[2] === "C"){
                     console.log("column C detected");
@@ -650,19 +867,25 @@ function moveDown(){
                         }
                         j +=4;
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
                 else if (gameSquares[i].classList[2] === "D"){
                     console.log("column D detected");
@@ -678,24 +901,112 @@ function moveDown(){
                         }
                         j +=4;
                     }
-                    if (newPosition < 0){
-                        newPosition = targetSpot;
+                    if (newPosition == i){
+                        ;
                     }
+                    else{
+                        if (newPosition < 0){
+                            newPosition = targetSpot;
+                        }
                     //swap with new position
                     oldValue = gameSquares[i].innerHTML;
                     oldColor = gameSquares[i].style.backgroundColor;
+                    oldFont = gameSquares[i].style.color;
                     gameSquares[newPosition].innerHTML = oldValue;
                     gameSquares[newPosition].style.backgroundColor = oldColor;
-                    gameSquares[newPosition].style.color = "#776E65"
+                    gameSquares[newPosition].style.color = oldFont;   
                     gameSquares[newPosition].classList.toggle("taken");
                     gameSquares[i].innerHTML = "";
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
+                    }
                 }
             }
     }
 }
 console.log("loop done");
+mergeMatchesDown(gameSquares);
+}
+
+function mergeMatchesDown(gameSquares){
+    var newValue;
+    var newColor;
+    var newFont;
+    for (let i = 15; i > -1; i--){
+        //look for taken squares
+        if (gameSquares[i].classList.contains("taken")){
+            if ((gameSquares[i].classList[0] === "13")||(gameSquares[i].classList[0] === "14")||(gameSquares[i].classList[0] === "15")||(gameSquares[i].classList[0] === "16")){
+                console.log("floor detected"); 
+            }
+            else{
+                if (spaceFilled(gameSquares[i+4])){
+                    var oldValue = gameSquares[i].innerHTML;
+                    if (gameSquares[i+4].innerHTML === gameSquares[i].innerHTML){
+                        if (oldValue === "2"){
+                            newValue = "4";
+                            newColor = "#EEE1C9";
+                            newFont = "#776E65";
+                        }
+                        else if (oldValue === "4"){
+                            newValue = "8";
+                            newColor = "#F3B27A";
+                            newFont = "#F9F6F2";
+                         
+                        }
+                        else if (oldValue === "8"){
+                            newValue = "16";
+                            newColor = "#F69664";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "16"){
+                            newValue = "32";
+                            newColor= "#F57C5F";
+                            newFont = "#F9F6F2";
+                            
+                        }
+                        else if (oldValue === "32"){
+                            newValue = "64";
+                            newColor = "#F5623C";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "64"){
+                            newValue = "128";
+                            newColor = "#EDCE71";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "128"){
+                            newValue = "256";
+                            newColor = "#EDCC63";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "256"){
+                            newValue = "512";
+                            newColor = "#F9CA58";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "512"){
+                            newValue = "1024";
+                            newColor = "#EDC53F";
+                            newFont = "#F9F6F2";
+                        }
+                        else if (oldValue === "1024"){
+                            newValue = "2048";
+                            newColor = "#E0BA00";
+                            newFont = "#F9F6F2";
+                        }
+                        gameSquares[i+4].innerHTML = newValue;
+                        gameSquares[i+4].style.backgroundColor = newColor;
+                        gameSquares[i+4].style.color = newFont;
+                        gameSquares[i].innerHTML = "";
+                        gameSquares[i].style.backgroundColor = "#CDC1B4";
+                        gameSquares[i].classList.toggle("taken");
+                    }
+                }
+            }
+
+        }
+    }
+    console.log(gameSquares);
 }
 
 function spawnPiece(gameSquares){
