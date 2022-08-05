@@ -4,19 +4,19 @@ document.addEventListener("keydown",function(event){
     const key = event.key;
     switch (key){
         case "ArrowLeft":
-            moveLeft(gameSquares);
+            moveLeft(gameSquares, false);
             break;
         case "ArrowRight":
-            moveRight(gameSquares);
+            moveRight(gameSquares, false);
             break;
         case "ArrowUp":
-            moveUp(gameSquares);
+            moveUp(gameSquares, false);
             break;
         case "ArrowDown":
-            moveDown(gameSquares);
+            moveDown(gameSquares, false);
             break;
     }
-})
+});
 
 //TODO: Make a function once things are merged called Fill in Gaps, which checks for gaps made by merging and fills them, essentially moving towards the direction again.
 //TODO: fix spawning (can only be done if a move is valid)
@@ -61,7 +61,7 @@ function getSecondNumber(firstNum){
     return 6;
 }
 
-function moveLeft(gameSquares){
+function moveLeft(gameSquares, checkGap){
     var pieceSwapped = false;
     console.log(gameSquares);
     for (let i = 0; i < gameSquares.length; i++){
@@ -215,6 +215,10 @@ function moveLeft(gameSquares){
 }
 console.log("loop done");
 var mergeSuccessful = mergeMatchesLeft(gameSquares);
+if (checkGap){
+    mergeSuccessful = false;
+    pieceSwapped = false;
+}
 if ((mergeSuccessful)||(pieceSwapped)){
     spawnPiece(gameSquares);
 }
@@ -306,7 +310,75 @@ function mergeMatchesLeft(gameSquares){
         }
     }
     console.log(gameSquares);
+    if (mergeSuccessful){
+        checkForGapsLeft(gameSquares);
+    }
     return mergeSuccessful;
+}
+
+function checkForGapsRight(gameSquares){
+    for (let i = 15; i > -1; i--){
+        if ((i === 3)|| (i === 7) || (i === 11) || (i === 15)){
+            ;
+        }
+        else if ((i === 2)||(i === 6)||(i === 8)||(i === 14)){
+            ;
+        }
+        else{
+            if (gameSquares[i+2].classList.contains("taken") && (gameSquares[i+1].classList.contains("taken")=== false)){
+                moveRight(gameSquares, true);
+            }
+        }
+    }
+  
+}
+
+function checkForGapsLeft(gameSquares){
+    for (let i = 0; i < gameSquares.length; i++){
+        if ((i === 0)|| (i === 4) || (i === 8) || (i === 12)){
+            ;
+        }
+        else if ((i === 1)||(i === 5)||(i === 9)||(i === 13)){
+            ;
+        }
+        else{
+            if (gameSquares[i-2].classList.contains("taken") && (gameSquares[i-1].classList.contains("taken")=== false)){
+                moveLeft(gameSquares, true);
+            }
+        }
+    }
+}
+
+function checkForGapsUp(gameSquares){
+    for (let i = 0; i < gameSquares.length; i++){
+        if ((i === 0)|| (i === 1) || (i === 2) || (i === 3)){
+            ;
+        }
+        else if ((i === 4)||(i === 5)||(i === 6)||(i === 7)){
+            ;
+        }
+        else{
+            if (gameSquares[i-8].classList.contains("taken") && (gameSquares[i-4].classList.contains("taken")=== false)){
+                moveUp(gameSquares, true);
+            }
+        }
+    }
+}
+
+function checkForGapsDown(gameSquares){
+    for (let i = 15; i > -1; i--){
+        if ((i === 12)|| (i === 13) || (i === 14) || (i === 15)){
+            ;
+        }
+        else if ((i === 8)||(i === 9)||(i === 10)||(i === 11)){
+            ;
+        }
+        else{
+            if (gameSquares[i+8].classList.contains("taken") && (gameSquares[i+4].classList.contains("taken")=== false)){
+                moveDown(gameSquares, true);
+            }
+        }
+    }
 }
 
 function mergeMatchesRight(gameSquares){
@@ -393,10 +465,13 @@ function mergeMatchesRight(gameSquares){
         }
     }
     console.log(gameSquares);
+    if (mergeSuccessful){
+        checkForGapsRight(gameSquares);
+    }
     return mergeSuccessful;
 }
 
-function moveRight(gameSquares){
+function moveRight(gameSquares, checkGap){
     console.log("RIGHT");
     console.log(gameSquares);
     var pieceSwapped = false;
@@ -550,11 +625,15 @@ function moveRight(gameSquares){
 }
 console.log("loop done");
 var mergeSuccessful = mergeMatchesRight(gameSquares);
+if (checkGap){
+    pieceSwapped = false;
+    mergeSuccessful = false;
+}
 if ((pieceSwapped)||(mergeSuccessful)){
     spawnPiece(gameSquares);
 }
 }
-function moveUp(){
+function moveUp(gameSquares, checkGap){
     var pieceSwapped = false;
     for (let i = 0; i < gameSquares.length; i++){
         if (gameSquares[i].classList.contains("taken")){
@@ -714,6 +793,10 @@ function moveUp(){
 }
 console.log("loop done");
 var mergeSuccessful = mergeMatchesUp(gameSquares);
+if (checkGap){
+    pieceSwapped = false;
+    mergeSuccessful = false;
+}
 if ((pieceSwapped)||(mergeSuccessful)){
     ssspawnPiece(gameSquares);
 }
@@ -800,10 +883,13 @@ function mergeMatchesUp(gameSquares){
         }
     }
     console.log(gameSquares);
+    if (mergeSuccessful){
+        checkForGapsUp(gameSquares);
+    }
     return mergeSuccessful;
 }
 
-function moveDown(){
+function moveDown(gameSquares, checkGap){
     var pieceSwapped = false;
     for (let i = 15; i > -1; i--){
         if (gameSquares[i].classList.contains("taken")){
@@ -965,6 +1051,10 @@ function moveDown(){
 console.log("loop done");
 console.log(pieceSwapped);
 var mergeSuccessful = mergeMatchesDown(gameSquares);
+if (checkGap){
+    mergeSuccessful = false;
+    pieceSwapped = false;
+}
 if ((pieceSwapped)||(mergeSuccessful)){
 spawnPiece(gameSquares);
 }
@@ -1049,6 +1139,9 @@ function mergeMatchesDown(gameSquares){
             }
 
         }
+    }
+    if (mergeSuccessful){
+        checkForGapsDown(gameSquares);
     }
     console.log(gameSquares);
     return mergeSuccessful;
