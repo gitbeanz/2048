@@ -1,4 +1,5 @@
 var gameSquares = document.querySelectorAll("[id='game-square']");
+score = 0;
 document.addEventListener("keydown",function(event){
     event.preventDefault();
     const key = event.key;
@@ -24,6 +25,11 @@ document.addEventListener("keydown",function(event){
 
 function startNewGame(){
     var gameSquares = document.querySelectorAll("[id='game-square']");
+    score = 0;
+    scoreText = document.querySelector("#score-text");
+    scoreText.innerHTML = score;
+    scoreText.style.fontSize = "2rem";
+    scoreText.style.bottom = "35px";
     for (let i = 0; i < gameSquares.length; i++){
         gameSquares[i].innerHTML = "";
         gameSquares[i].style.backgroundColor = "#CDC1B4"
@@ -248,53 +254,61 @@ function mergeMatchesLeft(gameSquares){
                             newValue = "4";
                             newColor = "#EEE1C9";
                             newFont = "#776E65";
+                            score += 4;
                         }
                         else if (oldValue === "4"){
                             newValue = "8";
                             newColor = "#F3B27A";
                             newFont = "#F9F6F2";
-                         
+                            score += 8;
                         }
                         else if (oldValue === "8"){
                             newValue = "16";
                             newColor = "#F69664";
                             newFont = "#F9F6F2";
+                            score += 16;
                         }
                         else if (oldValue === "16"){
                             newValue = "32";
                             newColor= "#F57C5F";
                             newFont = "#F9F6F2";
-                            
+                            score += 32;
                         }
                         else if (oldValue === "32"){
                             newValue = "64";
                             newColor = "#F5623C";
                             newFont = "#F9F6F2";
+                            score += 64;
                         }
                         else if (oldValue === "64"){
                             newValue = "128";
                             newColor = "#EDCE71";
                             newFont = "#F9F6F2";
+                            score += 128;
                         }
                         else if (oldValue === "128"){
                             newValue = "256";
                             newColor = "#EDCC63";
                             newFont = "#F9F6F2";
+                            score += 256;
                         }
                         else if (oldValue === "256"){
                             newValue = "512";
                             newColor = "#F9CA58";
                             newFont = "#F9F6F2";
+                            score += 512;
                         }
                         else if (oldValue === "512"){
                             newValue = "1024";
                             newColor = "#EDC53F";
                             newFont = "#F9F6F2";
+                            score += 1024;
                         }
                         else if (oldValue === "1024"){
                             newValue = "2048";
                             newColor = "#E0BA00";
                             newFont = "#F9F6F2";
+                            score += 2048;
                         }
                         gameSquares[i-1].innerHTML = newValue;
                         gameSquares[i-1].style.backgroundColor = newColor;
@@ -302,6 +316,12 @@ function mergeMatchesLeft(gameSquares){
                         gameSquares[i].innerHTML = "";
                         gameSquares[i].style.backgroundColor = "#CDC1B4";
                         gameSquares[i].classList.toggle("taken");
+                        scoreElement = document.querySelector("#score-text");
+                        if (score > 999){
+                            scoreElement.style.fontSize = "1.5rem";
+                            scoreElement.style.bottom = "25px";
+                        }
+                        scoreElement.innerHTML = score;
                         mergeSuccessful = true;
                     }
                 }
@@ -402,53 +422,61 @@ function mergeMatchesRight(gameSquares){
                             newValue = "4";
                             newColor = "#EEE1C9";
                             newFont = "#776E65";
+                            score += 4;
                         }
                         else if (oldValue === "4"){
                             newValue = "8";
                             newColor = "#F3B27A";
                             newFont = "#F9F6F2";
-                         
+                            score += 8;
                         }
                         else if (oldValue === "8"){
                             newValue = "16";
                             newColor = "#F69664";
                             newFont = "#F9F6F2";
+                            score += 16;
                         }
                         else if (oldValue === "16"){
                             newValue = "32";
                             newColor= "#F57C5F";
                             newFont = "#F9F6F2";
-                            
+                            score += 32;
                         }
                         else if (oldValue === "32"){
                             newValue = "64";
                             newColor = "#F5623C";
                             newFont = "#F9F6F2";
+                            score += 64;
                         }
                         else if (oldValue === "64"){
                             newValue = "128";
                             newColor = "#EDCE71";
                             newFont = "#F9F6F2";
+                            score += 128;
                         }
                         else if (oldValue === "128"){
                             newValue = "256";
                             newColor = "#EDCC63";
                             newFont = "#F9F6F2";
+                            score += 256;
                         }
                         else if (oldValue === "256"){
                             newValue = "512";
                             newColor = "#F9CA58";
                             newFont = "#F9F6F2";
+                            score += 512;
                         }
                         else if (oldValue === "512"){
                             newValue = "1024";
                             newColor = "#EDC53F";
                             newFont = "#F9F6F2";
+                            score += 1024;
                         }
                         else if (oldValue === "1024"){
                             newValue = "2048";
                             newColor = "#E0BA00";
                             newFont = "#F9F6F2";
+                            score += 2048;
                         }
                         gameSquares[i+1].innerHTML = newValue;
                         gameSquares[i+1].style.backgroundColor = newColor;
@@ -456,6 +484,12 @@ function mergeMatchesRight(gameSquares){
                         gameSquares[i].innerHTML = "";
                         gameSquares[i].style.backgroundColor = "#CDC1B4";
                         gameSquares[i].classList.toggle("taken");
+                        scoreElement = document.querySelector("#score-text");
+                        if (score > 999){
+                            scoreElement.style.fontSize = "1.5rem";
+                            scoreElement.style.bottom = "25px";
+                        }
+                        scoreElement.innerHTML = score;
                         mergeSuccessful = true;
 
                     }
@@ -821,53 +855,61 @@ function mergeMatchesUp(gameSquares){
                             newValue = "4";
                             newColor = "#EEE1C9";
                             newFont = "#776E65";
+                            score += 4;
                         }
                         else if (oldValue === "4"){
                             newValue = "8";
                             newColor = "#F3B27A";
                             newFont = "#F9F6F2";
-                         
+                            score += 8;
                         }
                         else if (oldValue === "8"){
                             newValue = "16";
                             newColor = "#F69664";
                             newFont = "#F9F6F2";
+                            score += 16;
                         }
                         else if (oldValue === "16"){
                             newValue = "32";
                             newColor= "#F57C5F";
                             newFont = "#F9F6F2";
-                            
+                            score += 32;
                         }
                         else if (oldValue === "32"){
                             newValue = "64";
                             newColor = "#F5623C";
                             newFont = "#F9F6F2";
+                            score += 64;
                         }
                         else if (oldValue === "64"){
                             newValue = "128";
                             newColor = "#EDCE71";
                             newFont = "#F9F6F2";
+                            score += 128;
                         }
                         else if (oldValue === "128"){
                             newValue = "256";
                             newColor = "#EDCC63";
                             newFont = "#F9F6F2";
+                            score += 256;
                         }
                         else if (oldValue === "256"){
                             newValue = "512";
                             newColor = "#F9CA58";
                             newFont = "#F9F6F2";
+                            score += 512;
                         }
                         else if (oldValue === "512"){
                             newValue = "1024";
                             newColor = "#EDC53F";
                             newFont = "#F9F6F2";
+                            score += 1024;
                         }
                         else if (oldValue === "1024"){
                             newValue = "2048";
                             newColor = "#E0BA00";
                             newFont = "#F9F6F2";
+                            score += 2048;
                         }
                         gameSquares[i-4].innerHTML = newValue;
                         gameSquares[i-4].style.backgroundColor = newColor;
@@ -875,6 +917,12 @@ function mergeMatchesUp(gameSquares){
                         gameSquares[i].innerHTML = "";
                         gameSquares[i].style.backgroundColor = "#CDC1B4";
                         gameSquares[i].classList.toggle("taken");
+                        scoreElement = document.querySelector("#score-text");
+                        if (score > 999){
+                            scoreElement.style.fontSize = "1.5rem";
+                            scoreElement.style.bottom = "25px";
+                        }
+                        scoreElement.innerHTML = score;
                         mergeSuccessful = true;
                     }
                 }
@@ -1079,53 +1127,61 @@ function mergeMatchesDown(gameSquares){
                             newValue = "4";
                             newColor = "#EEE1C9";
                             newFont = "#776E65";
+                            score += 4;
                         }
                         else if (oldValue === "4"){
                             newValue = "8";
                             newColor = "#F3B27A";
                             newFont = "#F9F6F2";
-                         
+                            score += 8;
                         }
                         else if (oldValue === "8"){
                             newValue = "16";
                             newColor = "#F69664";
                             newFont = "#F9F6F2";
+                            score += 16;
                         }
                         else if (oldValue === "16"){
                             newValue = "32";
                             newColor= "#F57C5F";
                             newFont = "#F9F6F2";
-                            
+                            score += 32;
                         }
                         else if (oldValue === "32"){
                             newValue = "64";
                             newColor = "#F5623C";
                             newFont = "#F9F6F2";
+                            score += 64;
                         }
                         else if (oldValue === "64"){
                             newValue = "128";
                             newColor = "#EDCE71";
                             newFont = "#F9F6F2";
+                            score += 128;
                         }
                         else if (oldValue === "128"){
                             newValue = "256";
                             newColor = "#EDCC63";
                             newFont = "#F9F6F2";
+                            score += 256;
                         }
                         else if (oldValue === "256"){
                             newValue = "512";
                             newColor = "#F9CA58";
                             newFont = "#F9F6F2";
+                            score += 512;
                         }
                         else if (oldValue === "512"){
                             newValue = "1024";
                             newColor = "#EDC53F";
                             newFont = "#F9F6F2";
+                            score += 1024;
                         }
                         else if (oldValue === "1024"){
                             newValue = "2048";
                             newColor = "#E0BA00";
                             newFont = "#F9F6F2";
+                            score += 2048;
                         }
                         gameSquares[i+4].innerHTML = newValue;
                         gameSquares[i+4].style.backgroundColor = newColor;
@@ -1133,6 +1189,12 @@ function mergeMatchesDown(gameSquares){
                         gameSquares[i].innerHTML = "";
                         gameSquares[i].style.backgroundColor = "#CDC1B4";
                         gameSquares[i].classList.toggle("taken");
+                        scoreElement = document.querySelector("#score-text");
+                        if (score > 999){
+                            scoreElement.style.fontSize = "1.5rem";
+                            scoreElement.style.bottom = "25px";
+                        }
+                        scoreElement.innerHTML = score;
                         mergeSuccessful = true;
                     }
                 }
