@@ -53,18 +53,23 @@ function startNewGame(){
 }
 
 function getFirstNumber(){
-    return 5;
+    return Math.floor(Math.random() * 16) + 0;
 }
 
+
 function getSecondNumber(firstNum){
-    /*var secondNumFound = false;
+    var secondNumFound = false;
     while (secondNumFound === false){
         var secondNum = Math.floor(Math.random() * 16) + 0;
         if (secondNum !== firstNum){
             secondNumFound = true;
         }
-    }*/
-    return 6;
+    }
+    return secondNum;
+}
+
+function isFour(){
+    return (Math.floor(Math.random() * 10) == 4)
 }
 
 function moveLeft(gameSquares, checkGap){
@@ -1215,9 +1220,16 @@ function spawnPiece(gameSquares){
         var potentialPiece = Math.floor(Math.random()*16);
         if (gameSquares[potentialPiece].classList.contains("taken") === false){
             gameSquares[potentialPiece].classList.toggle("taken");
+            if (isFour()){
+                gameSquares[potentialPiece].innerHTML = "4";
+                gameSquares[potentialPiece].style.backgroundColor = "#EEE1C9";
+                gameSquares[potentialPiece].style.color = "#776E65";
+            }
+            else{
             gameSquares[potentialPiece].innerHTML = "2";
             gameSquares[potentialPiece].style.backgroundColor = "#EEE4DA";
             gameSquares[potentialPiece].style.color = "#776E65";
+            }
             pieceFound = true;
         }
     }
