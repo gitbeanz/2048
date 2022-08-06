@@ -41,14 +41,26 @@ function startNewGame(){
     console.log(firstNum+1);
     var secondNum = getSecondNumber(firstNum);
     console.log(secondNum+1);
-   
+    if (isFour()){
+        gameSquares[firstNum].innerHTML = "4";
+        gameSquares[firstNum].style.backgroundColor = "#EEE1C9";
+        gameSquares[firstNum].style.color = "#776E65";
+    }else{
     gameSquares[firstNum].innerHTML = "2";
     gameSquares[firstNum].style.backgroundColor = "#EEE4DA"
     gameSquares[firstNum].style.color = "#776E65"
+    }
     gameSquares[firstNum].classList.toggle("taken");
+    if (isFour()){
+        gameSquares[secondNum].innerHTML = "4";
+        gameSquares[secondNum].style.backgroundColor = "#EEE1C9";
+        gameSquares[secondNum].style.color = "#776E65";
+    }
+    else{
     gameSquares[secondNum].innerHTML = "2";
     gameSquares[secondNum].style.backgroundColor = "#EEE4DA";
     gameSquares[secondNum].style.color = "#776E65";
+    }
     gameSquares[secondNum].classList.toggle("taken"); 
 }
 
