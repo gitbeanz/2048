@@ -237,7 +237,10 @@ function moveLeft(gameSquares, checkGap){
     }
 }
 console.log("loop done");
-var mergeSuccessful = mergeMatchesLeft(gameSquares);
+var mergeSuccessful;
+if (!checkGap){
+     mergeSuccessful = mergeMatchesLeft(gameSquares);
+}
 if (checkGap){
     mergeSuccessful = false;
     pieceSwapped = false;
@@ -674,8 +677,11 @@ function moveRight(gameSquares, checkGap){
             }
     }
 }
-console.log("loop done");
-var mergeSuccessful = mergeMatchesRight(gameSquares);
+console.log("loop done");4
+var mergeSuccessful;
+if (!checkGap){
+ mergeSuccessful = mergeMatchesRight(gameSquares);
+}
 if (checkGap){
     pieceSwapped = false;
     mergeSuccessful = false;
@@ -843,7 +849,10 @@ function moveUp(gameSquares, checkGap){
     }
 }
 console.log("loop done");
-var mergeSuccessful = mergeMatchesUp(gameSquares);
+var mergeSuccessful;
+if (!checkGap){
+    mergeSuccessful = mergeMatchesUp(gameSquares);
+}
 if (checkGap){
     pieceSwapped = false;
     mergeSuccessful = false;
@@ -1115,7 +1124,10 @@ function moveDown(gameSquares, checkGap){
 }
 console.log("loop done");
 console.log(pieceSwapped);
-var mergeSuccessful = mergeMatchesDown(gameSquares);
+var mergeSuccessful;
+if (!checkGap){
+    mergeSuccessful = mergeMatchesDown(gameSquares);
+}
 if (checkGap){
     mergeSuccessful = false;
     pieceSwapped = false;
