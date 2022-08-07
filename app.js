@@ -1,20 +1,29 @@
 var gameSquares = document.querySelectorAll("[id='game-square']");
+var gameWon = false;
 score = 0;
 document.addEventListener("keydown",function(event){
     event.preventDefault();
     const key = event.key;
     switch (key){
         case "ArrowLeft":
+            if (gameWon === false){
             moveLeft(gameSquares, false);
+            }
             break;
         case "ArrowRight":
+            if (gameWon === false){
             moveRight(gameSquares, false);
+            }
             break;
         case "ArrowUp":
+            if (gameWon === false){
             moveUp(gameSquares, false);
+            }
             break;
         case "ArrowDown":
+            if (gameWon === false){
             moveDown(gameSquares, false);
+            }
             break;
     }
 });
@@ -25,6 +34,7 @@ document.addEventListener("keydown",function(event){
 
 function startNewGame(){
     var gameSquares = document.querySelectorAll("[id='game-square']");
+    gameWon = false;
     score = 0;
     scoreText = document.querySelector("#score-text");
     scoreText.innerHTML = score;
@@ -329,6 +339,7 @@ function mergeMatchesLeft(gameSquares){
                             newColor = "#E0BA00";
                             newFont = "#F9F6F2";
                             score += 2048;
+                            gameWon = true;
                         }
                         gameSquares[i-1].innerHTML = newValue;
                         gameSquares[i-1].style.backgroundColor = newColor;
@@ -343,6 +354,10 @@ function mergeMatchesLeft(gameSquares){
                         }
                         scoreElement.innerHTML = score;
                         mergeSuccessful = true;
+                        if (gameWon){
+                            var winScreen = document.getElementById("win-screen");
+                            winScreen.style.display = "block";
+                        }
                     }
                 }
             }
@@ -497,6 +512,7 @@ function mergeMatchesRight(gameSquares){
                             newColor = "#E0BA00";
                             newFont = "#F9F6F2";
                             score += 2048;
+                            gameWon = true;
                         }
                         gameSquares[i+1].innerHTML = newValue;
                         gameSquares[i+1].style.backgroundColor = newColor;
@@ -511,6 +527,10 @@ function mergeMatchesRight(gameSquares){
                         }
                         scoreElement.innerHTML = score;
                         mergeSuccessful = true;
+                        if (gameWon){
+                            var winScreen = document.getElementById("win-screen");
+                            winScreen.style.display = "block";
+                        }
 
                     }
                 }
@@ -936,6 +956,7 @@ function mergeMatchesUp(gameSquares){
                             newColor = "#E0BA00";
                             newFont = "#F9F6F2";
                             score += 2048;
+                            gameWon = true;
                         }
                         gameSquares[i-4].innerHTML = newValue;
                         gameSquares[i-4].style.backgroundColor = newColor;
@@ -950,6 +971,10 @@ function mergeMatchesUp(gameSquares){
                         }
                         scoreElement.innerHTML = score;
                         mergeSuccessful = true;
+                        if (gameWon){
+                            var winScreen = document.getElementById("win-screen");
+                            winScreen.style.display = "block";
+                        }
                     }
                 }
             }
@@ -1211,6 +1236,7 @@ function mergeMatchesDown(gameSquares){
                             newColor = "#E0BA00";
                             newFont = "#F9F6F2";
                             score += 2048;
+                            gameWon = true;
                         }
                         gameSquares[i+4].innerHTML = newValue;
                         gameSquares[i+4].style.backgroundColor = newColor;
@@ -1225,6 +1251,10 @@ function mergeMatchesDown(gameSquares){
                         }
                         scoreElement.innerHTML = score;
                         mergeSuccessful = true;
+                        if (gameWon){
+                            var winScreen = document.getElementById("win-screen");
+                            winScreen.style.display = "block";
+                        }
                     }
                 }
             }
