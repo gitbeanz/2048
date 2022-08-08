@@ -1,6 +1,19 @@
 var gameSquares = document.querySelectorAll("[id='game-square']");
 var gameWon = false;
 score = 0;
+var bestScore = window.localStorage.getItem('best');
+    if (bestScore !== null){
+        bestText = document.querySelectorAll("#score-text")[1];
+        bestText.innerHTML = bestScore;
+        if (bestScore > 999){
+            bestText.style.fontSize = "1.5rem";
+            bestText.style.bottom = "25px";
+        }
+        if (bestScore > 9999){
+            bestText.style.fontSize = "1.4rem";
+            bestText.style.bottom = "23px";
+        }
+    }
 document.addEventListener("keydown",function(event){
     event.preventDefault();
     const key = event.key;
@@ -13,6 +26,9 @@ document.addEventListener("keydown",function(event){
                 else{
                     var loseScreen = document.getElementById("lose-screen");
                     loseScreen.style.display = "block";
+                    if (score > bestScore){
+                    window.localStorage.setItem('best', score);
+                    }
                 }
             }
             break;
@@ -24,6 +40,9 @@ document.addEventListener("keydown",function(event){
                 else{
                     var loseScreen = document.getElementById("lose-screen");
                     loseScreen.style.display = "block";
+                    if (score > bestScore){
+                    window.localStorage.setItem('best', score);
+                    }
                 }
             }
             break;
@@ -35,6 +54,9 @@ document.addEventListener("keydown",function(event){
                 else{
                     var loseScreen = document.getElementById("lose-screen");
                     loseScreen.style.display = "block";
+                    if (score > bestScore){
+                    window.localStorage.setItem('best', score);
+                    }
                 }
             }
             break;
@@ -46,6 +68,9 @@ document.addEventListener("keydown",function(event){
                 else{
                     var loseScreen = document.getElementById("lose-screen");
                     loseScreen.style.display = "block";
+                    if (score > bestScore){
+                    window.localStorage.setItem('best', score);
+                    }
                 }
             }
             break;
@@ -389,6 +414,9 @@ function mergeMatchesLeft(gameSquares){
                         if (gameWon){
                             var winScreen = document.getElementById("win-screen");
                             winScreen.style.display = "block";
+                            if (score > bestScore){
+                                window.localStorage.setItem('best', score);
+                            }
                         }
                     }
                 }
@@ -566,6 +594,9 @@ function mergeMatchesRight(gameSquares){
                         if (gameWon){
                             var winScreen = document.getElementById("win-screen");
                             winScreen.style.display = "block";
+                            if (score > bestScore){
+                                window.localStorage.setItem('best', score);
+                            }
                         }
 
                     }
@@ -1014,6 +1045,9 @@ function mergeMatchesUp(gameSquares){
                         if (gameWon){
                             var winScreen = document.getElementById("win-screen");
                             winScreen.style.display = "block";
+                            if (score > bestScore){
+                                window.localStorage.setItem('best', score);
+                            }
                         }
                     }
                 }
@@ -1288,6 +1322,9 @@ function mergeMatchesDown(gameSquares){
                         if (gameWon){
                             var winScreen = document.getElementById("win-screen");
                             winScreen.style.display = "block";
+                            if (score > bestScore){
+                                window.localStorage.setItem('best', score);
+                            }
                         }
                     }
                 }
