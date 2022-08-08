@@ -129,7 +129,7 @@ body{
     width: 100%;
     margin-top: 0px;
     position: relative;
-    bottom: 80px;
+    bottom: 120px;
 }
 
 #game-board{
@@ -144,7 +144,7 @@ body{
     height: 151px;
     width: 500px;
     position: relative;
-    bottom: 100px;
+    bottom: 130px;
     margin: auto;
 }
 
@@ -216,4 +216,16 @@ body{
     border-radius: 10px;
     bottom: 496px;
     display: none;
+}
+
+#time-page{
+    height: 50px;
+    width: 100%;
+    position: relative;
+    bottom: 115px;
+    text-align: center;
+    font-size: 1.25rem;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #776E65
 }

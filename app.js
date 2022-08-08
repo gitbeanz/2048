@@ -1,6 +1,10 @@
 var gameSquares = document.querySelectorAll("[id='game-square']");
 var gameWon = false;
 score = 0;
+var min = 0;
+var sec = 0;
+var msec = 0;
+var timeStopped = true;
 var bestScore = window.localStorage.getItem('best');
     if (bestScore !== null){
         bestText = document.querySelectorAll("#score-text")[1];
@@ -28,6 +32,7 @@ document.addEventListener("keydown",function(event){
                     loseScreen.style.display = "block";
                     if (score > bestScore){
                     window.localStorage.setItem('best', score);
+                    stopTimer();
                     }
                 }
             }
@@ -42,6 +47,7 @@ document.addEventListener("keydown",function(event){
                     loseScreen.style.display = "block";
                     if (score > bestScore){
                     window.localStorage.setItem('best', score);
+                    stopTimer();
                     }
                 }
             }
@@ -56,6 +62,7 @@ document.addEventListener("keydown",function(event){
                     loseScreen.style.display = "block";
                     if (score > bestScore){
                     window.localStorage.setItem('best', score);
+                    stopTimer();
                     }
                 }
             }
@@ -70,6 +77,7 @@ document.addEventListener("keydown",function(event){
                     loseScreen.style.display = "block";
                     if (score > bestScore){
                     window.localStorage.setItem('best', score);
+                    stopTimer();
                     }
                 }
             }
@@ -82,6 +90,7 @@ document.addEventListener("keydown",function(event){
 
 
 function startNewGame(){
+    resetTimer();
     var gameSquares = document.querySelectorAll("[id='game-square']");
     gameWon = false;
     var winScreen = document.getElementById("win-screen");
@@ -124,13 +133,56 @@ function startNewGame(){
     gameSquares[secondNum].style.backgroundColor = "#EEE4DA";
     gameSquares[secondNum].style.color = "#776E65";
     }
-    gameSquares[secondNum].classList.toggle("taken"); 
+    gameSquares[secondNum].classList.toggle("taken");
+    startTimer(); 
 }
 
 function getFirstNumber(){
     return Math.floor(Math.random() * 16) + 0;
 }
 
+function resetTimer(){
+    sec = 0;
+    min = 0;
+}
+
+function startTimer(){
+    console.log("STARTING TIMER");
+    if (timeStopped){
+        timeStopped = false;
+        timerCycle();
+    }
+}
+
+function stopTimer(){
+    timeStopped = true;
+    console.log("TIMER STOPPED");
+    console.log(timeStopped);
+}
+
+function timerCycle(){
+    console.log(timeStopped);
+    if (timeStopped === false){
+        sec = parseInt(sec);
+        min = parseInt(min);
+        sec += 1;
+        if (sec === 60){
+            min += 1;
+            sec = 0;
+        }
+        if ((sec < 10) || (sec === 0)){
+            sec = '0' + sec;
+        }
+        if ((min < 10) || (min === 0)){
+            min = '0' + min;
+        }
+        var minutes = document.querySelector('#main-minute');
+        var seconds = document.querySelector('#main-second');
+        minutes.innerHTML = min + ' min';
+        seconds.innerHTML = sec + ' sec';
+        setTimeout("timerCycle()", 1000);
+    }
+}
 
 function getSecondNumber(firstNum){
     var secondNumFound = false;
@@ -410,6 +462,9 @@ function mergeMatchesLeft(gameSquares){
                             scoreElement.style.bottom = "23px";
                         }
                         scoreElement.innerHTML = score;
+                        if (score > bestScore){
+                            window.localStorage.setItem('best', score);
+                            }
                         mergeSuccessful = true;
                         if (gameWon){
                             var winScreen = document.getElementById("win-screen");
@@ -417,6 +472,7 @@ function mergeMatchesLeft(gameSquares){
                             if (score > bestScore){
                                 window.localStorage.setItem('best', score);
                             }
+                            stopTimer();
                         }
                     }
                 }
@@ -590,6 +646,9 @@ function mergeMatchesRight(gameSquares){
                             scoreElement.style.bottom = "23px";
                         }
                         scoreElement.innerHTML = score;
+                        if (score > bestScore){
+                            window.localStorage.setItem('best', score);
+                            }
                         mergeSuccessful = true;
                         if (gameWon){
                             var winScreen = document.getElementById("win-screen");
@@ -597,6 +656,7 @@ function mergeMatchesRight(gameSquares){
                             if (score > bestScore){
                                 window.localStorage.setItem('best', score);
                             }
+                            stopTimer();
                         }
 
                     }
@@ -1041,6 +1101,9 @@ function mergeMatchesUp(gameSquares){
                             scoreElement.style.bottom = "23px";
                         }
                         scoreElement.innerHTML = score;
+                        if (score > bestScore){
+                            window.localStorage.setItem('best', score);
+                            }
                         mergeSuccessful = true;
                         if (gameWon){
                             var winScreen = document.getElementById("win-screen");
@@ -1048,6 +1111,7 @@ function mergeMatchesUp(gameSquares){
                             if (score > bestScore){
                                 window.localStorage.setItem('best', score);
                             }
+                            stopTimer();
                         }
                     }
                 }
@@ -1318,6 +1382,9 @@ function mergeMatchesDown(gameSquares){
                             scoreElement.style.bottom = "23px";
                         }
                         scoreElement.innerHTML = score;
+                        if (score > bestScore){
+                            window.localStorage.setItem('best', score);
+                            }
                         mergeSuccessful = true;
                         if (gameWon){
                             var winScreen = document.getElementById("win-screen");
@@ -1325,6 +1392,7 @@ function mergeMatchesDown(gameSquares){
                             if (score > bestScore){
                                 window.localStorage.setItem('best', score);
                             }
+                            stopTimer();
                         }
                     }
                 }
@@ -1399,5 +1467,6 @@ function moveAvailable(gameSquares){
             }
         }
     }
+    stopTimer();
     return false;
 }
