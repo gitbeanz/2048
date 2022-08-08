@@ -7,22 +7,46 @@ document.addEventListener("keydown",function(event){
     switch (key){
         case "ArrowLeft":
             if (gameWon === false){
-            moveLeft(gameSquares, false);
+                if (moveAvailable(gameSquares)){
+                    moveLeft(gameSquares, false);
+                }
+                else{
+                    var loseScreen = document.getElementById("lose-screen");
+                    loseScreen.style.display = "block";
+                }
             }
             break;
         case "ArrowRight":
             if (gameWon === false){
-            moveRight(gameSquares, false);
+                if (moveAvailable(gameSquares)){
+                    moveRight(gameSquares, false);
+                }
+                else{
+                    var loseScreen = document.getElementById("lose-screen");
+                    loseScreen.style.display = "block";
+                }
             }
             break;
         case "ArrowUp":
             if (gameWon === false){
-            moveUp(gameSquares, false);
+                if (moveAvailable(gameSquares)){
+                    moveUp(gameSquares, false);
+                }
+                else{
+                    var loseScreen = document.getElementById("lose-screen");
+                    loseScreen.style.display = "block";
+                }
             }
             break;
         case "ArrowDown":
             if (gameWon === false){
+                if (moveAvailable(gameSquares)){
             moveDown(gameSquares, false);
+                }
+                else{
+                    var loseScreen = document.getElementById("lose-screen");
+                    loseScreen.style.display = "block";
+                }
             }
             break;
     }
@@ -35,6 +59,10 @@ document.addEventListener("keydown",function(event){
 function startNewGame(){
     var gameSquares = document.querySelectorAll("[id='game-square']");
     gameWon = false;
+    var winScreen = document.getElementById("win-screen");
+    winScreen.style.display = "none";
+    var loseScreen = document.getElementById("lose-screen")
+    loseScreen.style.display = "none";
     score = 0;
     scoreText = document.querySelector("#score-text");
     scoreText.innerHTML = score;
@@ -352,6 +380,10 @@ function mergeMatchesLeft(gameSquares){
                             scoreElement.style.fontSize = "1.5rem";
                             scoreElement.style.bottom = "25px";
                         }
+                        if (score > 9999){
+                            scoreElement.style.fontSize = "1.4rem";
+                            scoreElement.style.bottom = "23px";
+                        }
                         scoreElement.innerHTML = score;
                         mergeSuccessful = true;
                         if (gameWon){
@@ -524,6 +556,10 @@ function mergeMatchesRight(gameSquares){
                         if (score > 999){
                             scoreElement.style.fontSize = "1.5rem";
                             scoreElement.style.bottom = "25px";
+                        }
+                        if (score > 9999){
+                            scoreElement.style.fontSize = "1.4rem";
+                            scoreElement.style.bottom = "23px";
                         }
                         scoreElement.innerHTML = score;
                         mergeSuccessful = true;
@@ -878,7 +914,7 @@ if (checkGap){
     mergeSuccessful = false;
 }
 if ((pieceSwapped)||(mergeSuccessful)){
-    ssspawnPiece(gameSquares);
+    spawnPiece(gameSquares);
 }
 }
 
@@ -969,6 +1005,10 @@ function mergeMatchesUp(gameSquares){
                             scoreElement.style.fontSize = "1.5rem";
                             scoreElement.style.bottom = "25px";
                         }
+                        if (score > 9999){
+                            scoreElement.style.fontSize = "1.4rem";
+                            scoreElement.style.bottom = "23px";
+                        }
                         scoreElement.innerHTML = score;
                         mergeSuccessful = true;
                         if (gameWon){
@@ -1039,9 +1079,7 @@ function moveDown(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[2] === "B"){
-                    console.log("column B detected");
                     targetSpot = 13;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
                     var newPosition = -1;
                     let j = i;
                    while(j<targetSpot){
@@ -1074,9 +1112,7 @@ function moveDown(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[2] === "C"){
-                    console.log("column C detected");
                     targetSpot = 14;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
                     var newPosition = -1;
                     let j = i;
                    while(j<targetSpot){
@@ -1109,9 +1145,7 @@ function moveDown(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[2] === "D"){
-                    console.log("column D detected");
                     targetSpot = 15;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
                     var newPosition = -1;
                     let j = i;
                    while(j<targetSpot){
@@ -1141,14 +1175,11 @@ function moveDown(gameSquares, checkGap){
                     gameSquares[i].style.backgroundColor = "#CDC1B4";
                     gameSquares[i].classList.toggle("taken");
                     pieceSwapped = true;
-                    console.log(pieceSwapped);
                     }
                 }
             }
     }
 }
-console.log("loop done");
-console.log(pieceSwapped);
 var mergeSuccessful;
 if (!checkGap){
     mergeSuccessful = mergeMatchesDown(gameSquares);
@@ -1171,7 +1202,6 @@ function mergeMatchesDown(gameSquares){
         //look for taken squares
         if (gameSquares[i].classList.contains("taken")){
             if ((gameSquares[i].classList[0] === "13")||(gameSquares[i].classList[0] === "14")||(gameSquares[i].classList[0] === "15")||(gameSquares[i].classList[0] === "16")){
-                console.log("floor detected"); 
             }
             else{
                 if (spaceFilled(gameSquares[i+4])){
@@ -1249,6 +1279,10 @@ function mergeMatchesDown(gameSquares){
                             scoreElement.style.fontSize = "1.5rem";
                             scoreElement.style.bottom = "25px";
                         }
+                        if (score > 9999){
+                            scoreElement.style.fontSize = "1.4rem";
+                            scoreElement.style.bottom = "23px";
+                        }
                         scoreElement.innerHTML = score;
                         mergeSuccessful = true;
                         if (gameWon){
@@ -1264,7 +1298,6 @@ function mergeMatchesDown(gameSquares){
     if (mergeSuccessful){
         checkForGapsDown(gameSquares);
     }
-    console.log(gameSquares);
     return mergeSuccessful;
 }
 
@@ -1292,10 +1325,42 @@ function spawnPiece(gameSquares){
 function allSquaresFilled(gameSquares){
     var returnValue = true;
     for (let i = 0; i<gameSquares.length;i++){
+        console.log("CHECKING SQUARESFILLED");
         if (gameSquares[i].classList.contains("taken") === false){
             returnValue = false;
             break;
         }
     }
     return returnValue;
+}
+
+function moveAvailable(gameSquares){
+    if (allSquaresFilled(gameSquares) === false){
+        console.log("ALLSQUARESFILLED FALSE");
+        return true;
+    }
+    else{
+        //check if  there are adjacent squares of same value
+        console.log("ALL SQUARES FILLED");
+        for (let i = 0; i < gameSquares.length;i++){
+            if ((i === 3)||(i === 7)||(i === 11)||(i === 15)){
+                ;
+            }
+            else{
+                //check square to the right of it
+                if (gameSquares[i].innerHTML === gameSquares[i+1].innerHTML){
+                    return true;
+                }
+            }
+            if ((i === 15)||(i === 14)||(i === 13)||(i === 12)){
+                ;
+            }
+            else{
+                if (gameSquares[i].innerHTML === gameSquares[i+4].innerHTML){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
