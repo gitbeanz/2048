@@ -84,8 +84,9 @@ document.addEventListener("keydown",function(event){
             break;
     }
 });
-document.addEventListener('touchstart', handleTouchStart, false);        
-document.addEventListener('touchmove', handleTouchMove, false);
+var gameBoard = document.querySelector('#game-board');
+gameBoard.addEventListener('touchstart', handleTouchStart, false);        
+gameBoard.addEventListener('touchmove', handleTouchMove, false);
 
 var xDown = null;                                                        
 var yDown = null;
