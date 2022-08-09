@@ -84,6 +84,104 @@ document.addEventListener("keydown",function(event){
             break;
     }
 });
+document.addEventListener('touchstart', handleTouchStart, false);        
+document.addEventListener('touchmove', handleTouchMove, false);
+
+var xDown = null;                                                        
+var yDown = null;
+
+function getTouches(evt) {
+  return evt.touches ||             // browser API
+         evt.originalEvent.touches; // jQuery
+}                                                     
+
+function handleTouchStart(evt) {
+    const firstTouch = getTouches(evt)[0];                                      
+    xDown = firstTouch.clientX;                                      
+    yDown = firstTouch.clientY;                                      
+};                                                
+
+function handleTouchMove(evt) {
+    if ( ! xDown || ! yDown ) {
+        return;
+    }
+
+    var xUp = evt.touches[0].clientX;                                    
+    var yUp = evt.touches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+        if ( xDiff > 0 ) {
+            /* left swipe */ 
+            if (gameWon === false){
+                if (moveAvailable(gameSquares)){
+                    moveLeft(gameSquares, false);
+                }
+                else{
+                    var loseScreen = document.getElementById("lose-screen");
+                    loseScreen.style.display = "block";
+                    if (score > bestScore){
+                    window.localStorage.setItem('best', score);
+                    stopTimer();
+                    }
+                }
+            }
+        } else {
+            /* right swipe */
+            if (gameWon === false){
+                if (moveAvailable(gameSquares)){
+                    moveRight(gameSquares, false);
+                }
+                else{
+                    var loseScreen = document.getElementById("lose-screen");
+                    loseScreen.style.display = "block";
+                    if (score > bestScore){
+                    window.localStorage.setItem('best', score);
+                    stopTimer();
+                    }
+                }
+            }
+        }                       
+    } else {
+        if ( yDiff > 0 ) {
+            /* up swipe */ 
+            if (gameWon === false){
+                if (moveAvailable(gameSquares)){
+                    moveUp(gameSquares, false);
+                }
+                else{
+                    var loseScreen = document.getElementById("lose-screen");
+                    loseScreen.style.display = "block";
+                    if (score > bestScore){
+                    window.localStorage.setItem('best', score);
+                    stopTimer();
+                    }
+                }
+            }
+        } else { 
+            /* down swipe */
+            if (gameWon === false){
+                if (moveAvailable(gameSquares)){
+            moveDown(gameSquares, false);
+                }
+                else{
+                    var loseScreen = document.getElementById("lose-screen");
+                    loseScreen.style.display = "block";
+                    if (score > bestScore){
+                    window.localStorage.setItem('best', score);
+                    stopTimer();
+                    }
+                }
+            }
+
+        }                                                                 
+    }
+    /* reset values */
+    xDown = null;
+    yDown = null;                                             
+};
 
 //TODO: Make a function once things are merged called Fill in Gaps, which checks for gaps made by merging and fills them, essentially moving towards the direction again.
 //TODO: fix spawning (can only be done if a move is valid)
