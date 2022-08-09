@@ -1,4 +1,4 @@
-# 2048
+<h1>2048</h1>
 
 # Features
 
@@ -12,3 +12,10 @@
 # How to Play
 
 Use your arrow keys to move the tiles. Tiles with the same number merge into one when they touch. Add them up to reach 2048!
+
+# Resources Used
+
+<ul>
+<li>https://github.com/gabrielecirulli/2048</li>
+<li>https://dev.to/gspteck/create-a-stopwatch-in-javascript-2mak</li>
+</ul>
