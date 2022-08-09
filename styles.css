@@ -249,6 +249,18 @@ body{
         width: 400px;
         height: 420px;
     }
+    #win-screen{
+        width: 400px;
+        height: 420px;
+        bottom: 408px;
+        line-height: 400px;
+    }
+    #lose-screen{
+        width: 400px;
+        height: 420px;
+        bottom: 408px;
+        line-height: 400px;
+    }
     #game-square{
         width: 85px;
         height: 87px;
