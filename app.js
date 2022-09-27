@@ -209,9 +209,7 @@ function startNewGame(){
         }
     }
     var firstNum = getFirstNumber();
-    console.log(firstNum+1);
     var secondNum = getSecondNumber(firstNum);
-    console.log(secondNum+1);
     if (isFour()){
         gameSquares[firstNum].innerHTML = "4";
         gameSquares[firstNum].style.backgroundColor = "#EEE1C9";
@@ -246,7 +244,6 @@ function resetTimer(){
 }
 
 function startTimer(){
-    console.log("STARTING TIMER");
     if (timeStopped){
         timeStopped = false;
         timerCycle();
@@ -255,12 +252,9 @@ function startTimer(){
 
 function stopTimer(){
     timeStopped = true;
-    console.log("TIMER STOPPED");
-    console.log(timeStopped);
 }
 
 function timerCycle(){
-    console.log(timeStopped);
     if (timeStopped === false){
         sec = parseInt(sec);
         min = parseInt(min);
@@ -300,23 +294,22 @@ function isFour(){
 
 function moveLeft(gameSquares, checkGap){
     var pieceSwapped = false;
-    console.log(gameSquares);
     for (let i = 0; i < gameSquares.length; i++){
         if (gameSquares[i].classList.contains("taken")){
-            console.log("Scanning ", gameSquares[i].classList[0])
-            console.log("gameSquares length: ", gameSquares.length)
+            
+            
             //check if it's leftmost
             if ((gameSquares[i].classList[0] === "1")||(gameSquares[i].classList[0] === "5")||(gameSquares[i].classList[0] === "9")||(gameSquares[i].classList[0] === "13")){
-                console.log("corner detected"); 
+                
             }
             else{
                 var targetSpot = 0;
                 //find row
-                console.log("not a corner");
+                
                 if (gameSquares[i].classList[1] === "1"){
-                    console.log("row 1 detected");
+                    
                     targetSpot = 0;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     for (let j = i; j>targetSpot;j--){
                         //check if spaceFilledLeft
@@ -347,16 +340,16 @@ function moveLeft(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[1] === "2"){
-                    console.log("row 2 detected");
+                    
                     targetSpot = 4;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     for (let j = i; j>targetSpot;j--){
                         //check if spaceFilledLeft
                         if (spaceFilled(gameSquares[j-1]) === true){
-                            console.log("SPACE DETECTED")
+                            
                             var newPosition = j;
-                            console.log("j value: ", j);
+                            
                             break
                         }
                     }
@@ -382,9 +375,9 @@ function moveLeft(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[1] === "3"){
-                    console.log("row 3 detected");
+                    
                     targetSpot = 8;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     for (let j = i; j>targetSpot;j--){
                         //check if spaceFilledLeft
@@ -415,9 +408,9 @@ function moveLeft(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[1] === "4"){
-                    console.log("row 4 detected");
+                    
                     targetSpot = 12;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     for (let j = i; j>targetSpot;j--){
                         //check if spaceFilledLeft
@@ -450,7 +443,7 @@ function moveLeft(gameSquares, checkGap){
             }
     }
 }
-console.log("loop done");
+
 var mergeSuccessful;
 if (!checkGap){
      mergeSuccessful = mergeMatchesLeft(gameSquares);
@@ -477,7 +470,7 @@ function mergeMatchesLeft(gameSquares){
         //look for taken squares
         if (gameSquares[i].classList.contains("taken")){
             if ((gameSquares[i].classList[0] === "1")||(gameSquares[i].classList[0] === "5")||(gameSquares[i].classList[0] === "9")||(gameSquares[i].classList[0] === "13")){
-                console.log("corner detected"); 
+                
                 //check space to the right
             }
             else{
@@ -579,7 +572,7 @@ function mergeMatchesLeft(gameSquares){
 
         }
     }
-    console.log(gameSquares);
+    
     if (mergeSuccessful){
         checkForGapsLeft(gameSquares);
     }
@@ -652,8 +645,8 @@ function checkForGapsDown(gameSquares){
 }
 
 function mergeMatchesRight(gameSquares){
-    console.log("CHECKING");
-    console.log(gameSquares);
+    
+    
     var newValue;
     var newColor;
     var newFont;
@@ -662,7 +655,7 @@ function mergeMatchesRight(gameSquares){
         //look for taken squares
         if (gameSquares[i].classList.contains("taken")){
             if ((gameSquares[i].classList[0] === "4")||(gameSquares[i].classList[0] === "8")||(gameSquares[i].classList[0] === "12")||(gameSquares[i].classList[0] === "16")){
-                console.log("corner detected"); 
+                
             }
             else{
                 if (spaceFilled(gameSquares[i+1])){
@@ -764,7 +757,7 @@ function mergeMatchesRight(gameSquares){
 
         }
     }
-    console.log(gameSquares);
+    
     if (mergeSuccessful){
         checkForGapsRight(gameSquares);
     }
@@ -772,26 +765,26 @@ function mergeMatchesRight(gameSquares){
 }
 
 function moveRight(gameSquares, checkGap){
-    console.log("RIGHT");
-    console.log(gameSquares);
+    
+    
     var pieceSwapped = false;
     for (let i = 15; i > -1; i--){
         if (gameSquares[i].classList.contains("taken")){
-            console.log("Scanning ", gameSquares[i].classList[0])
-            console.log("gameSquares length: ", gameSquares.length)
+            
+            
             //check if it's rightmost
             if ((gameSquares[i].classList[0] === "4")||(gameSquares[i].classList[0] === "8")||(gameSquares[i].classList[0] === "12")||(gameSquares[i].classList[0] === "16")){
-                console.log("corner detected"); 
+                
             }
             else{
                 var targetSpot = 0;
                 //find row
-                console.log("not a corner");
-                console.log(gameSquares[i].classList);
+                
+                
                 if ((gameSquares[i].classList[1] === "1")||(gameSquares[i].classList[1] === "A")){
-                    console.log("row 1 detected");
+                    
                     targetSpot = 3;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     for (let j = i; j<targetSpot;j++){
                         //check if spaceFilledLeft
@@ -822,9 +815,9 @@ function moveRight(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[1] === "2"){
-                    console.log("row 2 detected");
+                    
                     targetSpot = 7;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     for (let j = i; j<targetSpot;j++){
                         //check if spaceFilledLeft
@@ -855,9 +848,9 @@ function moveRight(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[1] === "3"){
-                    console.log("row 3 detected");
+                    
                     targetSpot = 11;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     for (let j = i; j<targetSpot;j++){
                         //check if spaceFilledLeft
@@ -888,9 +881,9 @@ function moveRight(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[1] === "4"){
-                    console.log("row 4 detected");
+                    
                     targetSpot = 15;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     for (let j = i; j<targetSpot;j++){
                         //check if spaceFilledLeft
@@ -923,7 +916,7 @@ function moveRight(gameSquares, checkGap){
             }
     }
 }
-console.log("loop done");4
+
 var mergeSuccessful;
 if (!checkGap){
  mergeSuccessful = mergeMatchesRight(gameSquares);
@@ -940,21 +933,21 @@ function moveUp(gameSquares, checkGap){
     var pieceSwapped = false;
     for (let i = 0; i < gameSquares.length; i++){
         if (gameSquares[i].classList.contains("taken")){
-            console.log("Scanning ", gameSquares[i].classList[0])
-            console.log("gameSquares length: ", gameSquares.length)
-            console.log(gameSquares[i].classList);
+            
+            
+            
             //check if it's leftmost
             if ((gameSquares[i].classList[0] === "1")||(gameSquares[i].classList[0] === "2")||(gameSquares[i].classList[0] === "3")||(gameSquares[i].classList[0] === "4")){
-                console.log("ceiling detected"); 
+                
             }
             else{
                 var targetSpot = 0;
                 //find column
-                console.log("not a ceiling");
+                
                 if (gameSquares[i].classList[2] === "A"){
-                    console.log("column A detected");
+                    
                     targetSpot = 0;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     let j = i;
                    while(j>targetSpot){
@@ -987,9 +980,9 @@ function moveUp(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[2] === "B"){
-                    console.log("column B detected");
+                    
                     targetSpot = 1;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     let j = i;
                    while(j>targetSpot){
@@ -1022,9 +1015,9 @@ function moveUp(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[2] === "C"){
-                    console.log("column C detected");
+                    
                     targetSpot = 2;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     let j = i;
                    while(j>targetSpot){
@@ -1057,9 +1050,9 @@ function moveUp(gameSquares, checkGap){
                     }
                 }
                 else if (gameSquares[i].classList[2] === "D"){
-                    console.log("column D detected");
+                    
                     targetSpot = 3;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
+                    
                     var newPosition = -1;
                     let j = i;
                    while(j>targetSpot){
@@ -1094,7 +1087,7 @@ function moveUp(gameSquares, checkGap){
             }
     }
 }
-console.log("loop done");
+
 var mergeSuccessful;
 if (!checkGap){
     mergeSuccessful = mergeMatchesUp(gameSquares);
@@ -1117,7 +1110,7 @@ function mergeMatchesUp(gameSquares){
         //look for taken squares
         if (gameSquares[i].classList.contains("taken")){
             if ((gameSquares[i].classList[0] === "1")||(gameSquares[i].classList[0] === "2")||(gameSquares[i].classList[0] === "3")||(gameSquares[i].classList[0] === "4")){
-                console.log("ceiling detected"); 
+                
             }
             else{
                 if (spaceFilled(gameSquares[i-4])){
@@ -1218,7 +1211,7 @@ function mergeMatchesUp(gameSquares){
 
         }
     }
-    console.log(gameSquares);
+    
     if (mergeSuccessful){
         checkForGapsUp(gameSquares);
     }
@@ -1229,21 +1222,18 @@ function moveDown(gameSquares, checkGap){
     var pieceSwapped = false;
     for (let i = 15; i > -1; i--){
         if (gameSquares[i].classList.contains("taken")){
-            console.log("Scanning ", gameSquares[i].classList[0])
-            console.log("gameSquares length: ", gameSquares.length)
-            console.log(gameSquares[i].classList);
+            
+            
+            
             //check if it's bottom
             if ((gameSquares[i].classList[0] === "13")||(gameSquares[i].classList[0] === "14")||(gameSquares[i].classList[0] === "15")||(gameSquares[i].classList[0] === "16")){
-                console.log("floor detected"); 
+                
             }
             else{
                 var targetSpot = 0;
                 //find column
-                console.log("not a floor");
                 if ((gameSquares[i].classList[2] === "A")||(gameSquares[i].classList[1] === "A")){
-                    console.log("column A detected");
                     targetSpot = 12;
-                    console.log("we are at",i+1, " and we want to go to ", targetSpot + 1);
                     var newPosition = -1;
                     let j = i;
                    while(j<targetSpot){
@@ -1529,7 +1519,6 @@ function spawnPiece(gameSquares){
 function allSquaresFilled(gameSquares){
     var returnValue = true;
     for (let i = 0; i<gameSquares.length;i++){
-        console.log("CHECKING SQUARESFILLED");
         if (gameSquares[i].classList.contains("taken") === false){
             returnValue = false;
             break;
@@ -1540,12 +1529,10 @@ function allSquaresFilled(gameSquares){
 
 function moveAvailable(gameSquares){
     if (allSquaresFilled(gameSquares) === false){
-        console.log("ALLSQUARESFILLED FALSE");
         return true;
     }
     else{
         //check if  there are adjacent squares of same value
-        console.log("ALL SQUARES FILLED");
         for (let i = 0; i < gameSquares.length;i++){
             if ((i === 3)||(i === 7)||(i === 11)||(i === 15)){
                 ;
